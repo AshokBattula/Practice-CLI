@@ -2,9 +2,9 @@ name: Run Maven TestNG Tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   test:
@@ -20,14 +20,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build with Maven
+      - name: Build and run tests with Maven
         run: mvn -B clean test
 
-      - name: Upload Test Reports
+      - name: Upload Surefire and TestNG reports
         uses: actions/upload-artifact@v3
         with:
           name: test-reports
           path: |
             target/surefire-reports/
-            target/test-output/
             target/testng-results.xml
