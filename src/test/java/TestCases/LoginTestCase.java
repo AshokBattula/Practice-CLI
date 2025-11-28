@@ -19,5 +19,6 @@ public class LoginTestCase {
     public void openGoogle(){
         WebDriver driver =new ChromeDriver();
         driver.get("https://google.com");
+        driver.quit();
     }
 }
