@@ -1,17 +1,17 @@
-name: Maven TestNG Tests
+name: Run Maven TestNG Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up JDK 17
@@ -21,4 +21,13 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven
-        run: mvn clean test
+        run: mvn -B clean test
+
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: |
+            target/surefire-reports/
+            target/test-output/
+            target/testng-results.xml
